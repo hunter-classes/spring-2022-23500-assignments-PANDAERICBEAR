@@ -1,10 +1,10 @@
 * Spring 2022 235 Assignments
 
-* Last name:
+* Last name: Li
 
-* First name:
+* First name: Eric
 
-* GitHub username:
+* GitHub username: PANDAERICBEAR
 
 * Notes:
 
@@ -17,7 +17,3 @@
   create and where to place them.
 - Projects will be in their own folders. Each assigned project will
   include the specific details required.
-
-  
-
-
