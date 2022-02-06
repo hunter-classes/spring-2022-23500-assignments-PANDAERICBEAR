@@ -43,9 +43,9 @@ int stepPermsMem(int n){
     return memArray[n];
   }
 }
+
 int main(){
-  cout << stepPerms(1) << endl;
-  cout << stepPerms(3) << endl;
-  cout << stepPerms(5) << endl;
-  cout << stepPerms(7) << endl;
+  for(int i = 1; i <= 36; i++){
+    cout << i << ": " << stepPerms(i) << endl;
+  }
 }
