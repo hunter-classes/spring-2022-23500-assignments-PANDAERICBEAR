@@ -7,9 +7,22 @@ List::List(){
 }
 
 List::~List(){
-  std::cout << "size is " << size << "\n";
-  for(int i = size; i > 0; i--){
-    remove(i);
+  //walker --> last instance of the list of nodes
+  Node *walker = head;
+  //remove original instance of list of nodes --> set to nullptr
+  head = nullptr;
+
+  //delete and de-allocate memory for all nodes in the list
+  Node *tempNode;
+  //deletes from head to last node;
+  //walker traverses while deleting the node behind it to never lose track of the next node
+  while (walker != nullptr){
+    //tempNode = current walker node
+    tempNode = walker;
+    //walker node traverses forward
+    walker = walker->getNext();
+    //delete the previous node --> tempNode
+    delete tempNode;
   }
 }
 
@@ -21,7 +34,6 @@ void List::insert(std::string data){
   head=new_node;
   size = size + 1;
   std::cout << "size is " << size << "\n";
-
 }
 
 std::string List::toString(){
