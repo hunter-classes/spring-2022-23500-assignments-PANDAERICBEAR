@@ -1,10 +1,25 @@
 #include <iostream>
 #include "List.h"
 #include "Node.h"
+#include "OList.h"
 void Nodes();
 void LinkedList();
 
 int main(){
+  OList *alist = new OList();
+  alist->insert(5);
+  alist->insert(10);
+  alist->insert(30);
+  alist->insert(25);
+  alist->insert(2);
+  alist->insert(7);
+  alist->insert(-10);
+  alist->insert(-5);
+  std::cout << alist->toString() << "\n";
+  return 0;
+}
+
+void LinkedList(){
   List *list = new List();
   list->insert("a");
   list->insert("b");
@@ -13,7 +28,7 @@ int main(){
   list->insert("e");
   list->insert("f");
 
-  list->locate(2, "z");
+  list->locate(0, "z");
   std::cout << list->toString() << "\n";
 
   list->remove(2);
@@ -23,17 +38,6 @@ int main(){
   //destruct list
   list->~List();
   std::cout << list->toString() << "\n";
-  return 0;
-}
-
-void LinkedList(){
-  List *l1 = new List();
-
-  std::cout << l1->toString() << "\n";
-  l1->insert("a");
-  l1->insert("b");
-  l1->insert("c");
-  std::cout << l1->toString() << "\n";
 }
 
 void Nodes(){

@@ -63,7 +63,6 @@ void List::locate(int location, std::string data){
   walker->setNext(newNode);
   size = size + 1;
   std::cout << "size is " << size << "\n";
-
 }
 
 void List::remove(int location){
