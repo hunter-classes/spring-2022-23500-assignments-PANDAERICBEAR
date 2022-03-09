@@ -103,10 +103,11 @@ std::vector<int> msort(std::vector<int> v){
         right.push_back(v.at(v.size()-1-i));
       }
     }
+    print_vector(left);
+    print_vector(right);
     merged = merge(left, right);
     print_vector(merged);
-    msort(merged);
-    return merged;
+    return msort(merged);
   }
 }
 
@@ -134,7 +135,8 @@ int main()
   std::vector<int> m = merge(left,right);
   print_vector(m);
 
+  std::vector<int> vect = {1, 8, 2, 5, 3, 6, 4, 7, 9};
   std::cout << "/* break */" << '\n';
-  msort(right);
+  msort(vect);
   return 0;
 }
