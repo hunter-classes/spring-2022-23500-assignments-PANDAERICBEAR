@@ -87,7 +87,7 @@ std::vector<int> msort(std::vector<int> v){
   std::vector<int> left;
   std::vector<int> right;
 
-  if(v.size() <= 2){
+  if(v.size() < 2){
     return v;
   } else{
     //v.size() is even
@@ -103,12 +103,11 @@ std::vector<int> msort(std::vector<int> v){
         right.push_back(v.at(v.size()-1-i));
       }
     }
-    print_vector(left);
-    print_vector(right);
-    merged = merge(left, right);
+    merged = merge(msort(left), msort(right));
     print_vector(merged);
-    return msort(merged);
+    return merged;
   }
+  return v;
 }
 
 int main()
@@ -130,12 +129,13 @@ int main()
   */
   std::vector<int> left = {1,2,5,6,10,15};
   std::vector<int> right = {3,7,8,12,16,19,20};
-  print_vector(left);
-  print_vector(right);
+  // print_vector(left);
+  // print_vector(right);
   std::vector<int> m = merge(left,right);
-  print_vector(m);
+  // print_vector(m);
 
   std::vector<int> vect = {1, 8, 2, 5, 3, 6, 4, 7, 9};
+  print_vector(vect);
   std::cout << "/* break */" << '\n';
   msort(vect);
   return 0;
