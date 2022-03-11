@@ -6,7 +6,23 @@ OList::OList(){
 }
 
 OList::~OList(){
-  return;
+  //walker --> last instance of the list of nodes
+  Node *walker = head;
+  //remove original instance of list of nodes --> set to nullptr
+  head = nullptr;
+
+  //delete and de-allocate memory for all nodes in the list
+  Node *tempNode;
+  //deletes from head to last node;
+  //walker traverses while deleting the node behind it to never lose track of the next node
+  while (walker != nullptr){
+    //tempNode = current walker node
+    tempNode = walker;
+    //walker node traverses forward
+    walker = walker->getNext();
+    //delete the previous node --> tempNode
+    delete tempNode;
+  }
 }
 
 //insert a new node with value into the list in its proper location
