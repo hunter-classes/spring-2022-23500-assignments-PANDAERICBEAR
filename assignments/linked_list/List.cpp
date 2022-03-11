@@ -32,8 +32,8 @@ void List::insert(std::string data){
   //insert the new Node
   new_node->setNext(head);
   head=new_node;
-  size = size + 1;
-  std::cout << "size is " << size << "\n";
+  // size = size + 1;
+  // std::cout << "size is " << size << "\n";
 }
 
 std::string List::toString(){
@@ -51,27 +51,30 @@ std::string List::toString(){
 void List::locate(int location, std::string data){
   Node *walker = head;
   Node *newNode = new Node(data);
-  int i = 1;
-  while(walker != nullptr && i < location-1){
+  if (location == 0){
+    newNode->setNext(head);
+    head = newNode;
+  }
+  while(walker != nullptr && location > 1){
     walker = walker->getNext();
-    i+=1;
+    location-=1;
   }
 
   //point newNode.next() to walker.next()
   newNode->setNext(walker->getNext());
   //point walker to newNode
   walker->setNext(newNode);
-  size = size + 1;
-  std::cout << "size is " << size << "\n";
+  // size = size + 1;
+  // std::cout << "size is " << size << "\n";
 }
 
 void List::remove(int location){
   Node *walker = head;
   Node *tempNode = new Node();
-  int i = 1;
-  while(walker != nullptr && i < location-1){
+
+  while(walker != nullptr && location > 1){
     walker = walker->getNext();
-    i+=1;
+    location-=1;
   }
 
   //set tempNode to Node after the node we want to delete, to save its information
@@ -80,6 +83,6 @@ void List::remove(int location){
   delete(walker->getNext());
   //set walker.next() to be the tempNode
   walker->setNext(tempNode);
-  size = size - 1;
-  std::cout << "size is " << size << "\n";
+  // size = size - 1;
+  // std::cout << "size is " << size << "\n";
 }

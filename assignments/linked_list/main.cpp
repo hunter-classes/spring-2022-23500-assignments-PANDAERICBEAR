@@ -7,15 +7,14 @@ void LinkedList();
 
 int main(){
   OList *alist = new OList();
-  alist->insert(5);
-  alist->insert(10);
-  alist->insert(30);
-  alist->insert(25);
+  alist->insert(1);
   alist->insert(2);
-  alist->insert(7);
-  alist->insert(-10);
-  alist->insert(-5);
+  // alist->insert(3);
+  // alist->insert(4);
+  // alist->insert(5);
+  alist->reverse();
   std::cout << alist->toString() << "\n";
+  // LinkedList();
   return 0;
 }
 
@@ -28,7 +27,7 @@ void LinkedList(){
   list->insert("e");
   list->insert("f");
 
-  list->locate(0, "z");
+  list->locate(3, "z");
   std::cout << list->toString() << "\n";
 
   list->remove(2);

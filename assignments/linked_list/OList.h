@@ -16,6 +16,7 @@ public:
   bool contains(int value);
   //returns the value at loc
   int get(int loc);
+  void remove(int location);
   // This should “reverse” the list - that is reverse the pointers
   void reverse();
 };
