@@ -73,4 +73,8 @@ TEST_CASE("Part 2"){
     alist->reverse();
     CHECK(alist->toString() == "30 --> 25 --> 10 --> 7 --> 5 --> 2 --> -5 --> -10 --> nullptr");
   }
+  SUBCASE("OList - destructor()"){
+    alist->~OList();
+    CHECK(alist->toString() == "nullptr");
+  }
 }

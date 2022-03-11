@@ -9,7 +9,6 @@ OList::~OList(){
   //walker --> last instance of the list of nodes
   Node *walker = head;
   //remove original instance of list of nodes --> set to nullptr
-  head = nullptr;
 
   //delete and de-allocate memory for all nodes in the list
   Node *tempNode;
@@ -23,6 +22,8 @@ OList::~OList(){
     //delete the previous node --> tempNode
     delete tempNode;
   }
+  head = nullptr;
+  
 }
 
 //insert a new node with value into the list in its proper location
