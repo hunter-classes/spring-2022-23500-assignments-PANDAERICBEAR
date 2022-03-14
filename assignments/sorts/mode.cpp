@@ -5,6 +5,7 @@
 int count(std::vector<int> v, int value);
 int largest(std::vector<int> v);
 int mode(std::vector<int> v);
+int mode2(std::vector<int> v);
 
 //A main routine that builds a std::vector<int>
 //of random values and tests the above routines.
@@ -13,6 +14,7 @@ int main(){
   std::cout << count(vect, 7) << '\n';
   std::cout << largest(vect) << '\n';
   std::cout << mode(vect) << '\n';
+  std::cout << mode2(vect) << '\n';
 }
 
 //this will return the number of times value appears in the unsorted vector v.
@@ -58,4 +60,24 @@ int mode(std::vector<int> v){
    }
 
    return maxOccNum;
+}
+
+int mode2(std::vector<int> v){
+  int largestNum = largest(v);
+
+  std::vector<int> newVect(largestNum);
+  for(auto i : v){
+    newVect[i]++;
+  }
+
+  int max = 0;
+  int index = 0;
+  for (int i = 0; i < newVect.size(); i++){
+    if (newVect[i] > max){
+      max = newVect[i];
+      index = i;
+    }
+  }
+  return index;
+
 }
