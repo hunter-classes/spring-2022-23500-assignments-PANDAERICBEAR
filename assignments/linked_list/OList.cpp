@@ -6,7 +6,24 @@ OList::OList(){
 }
 
 OList::~OList(){
-  return;
+  //walker --> last instance of the list of nodes
+  Node *walker = head;
+  //remove original instance of list of nodes --> set to nullptr
+
+  //delete and de-allocate memory for all nodes in the list
+  Node *tempNode;
+  //deletes from head to last node;
+  //walker traverses while deleting the node behind it to never lose track of the next node
+  while (walker != nullptr){
+    //tempNode = current walker node
+    tempNode = walker;
+    //walker node traverses forward
+    walker = walker->getNext();
+    //delete the previous node --> tempNode
+    delete tempNode;
+  }
+  head = nullptr;
+  
 }
 
 //insert a new node with value into the list in its proper location
@@ -67,15 +84,71 @@ std::string OList::toString(){
 
 //returns true if value is in the list, false otherwise
 bool OList::contains(int value){
-  return true;
+  Node *walker = head;
+  while(walker != nullptr){
+    if (std::stoi(walker->getData()) == value){
+      return true;
+    }
+    walker = walker->getNext();
+  }
+  return false;
 }
 
 //returns the value at loc
 int OList::get(int loc){
-  return 0;
+  Node *walker = head;
+  while(walker != nullptr && loc > 0){
+    walker = walker->getNext();
+    loc -= 1;
+  }
+  if (loc < 0){
+    throw std::out_of_range("Out of range");
+  } else if (walker == nullptr && (loc > 0)){
+    throw std::out_of_range("Out of range");
+  }
+  return std::stoi(walker->getData());
+}
+
+void OList::remove(int location){
+  Node *walker = head;
+  Node *tempNode = new Node();
+
+  while(walker != nullptr && location > 1){
+    walker = walker->getNext();
+    location-=1;
+  }
+
+  if (location < 0){
+    throw std::out_of_range("Out of range");
+  } else if (walker == nullptr && (location > 0)){
+    throw std::out_of_range("Out of range");
+  }
+  //set tempNode to Node after the node we want to delete, to save its information
+  tempNode=walker->getNext()->getNext();
+  //delete the node that we don't want
+  delete(walker->getNext());
+  //set walker.next() to be the tempNode
+  walker->setNext(tempNode);
+  // size = size - 1;
+  // std::cout << "size is " << size << "\n";
 }
 
 // This should “reverse” the list - that is reverse the pointers
 void OList::reverse(){
+  Node *p1 = head;
+  Node *p2 = head->getNext();
+  Node *p3 = head->getNext()->getNext();
+  p1->setNext(nullptr);
+
+  while(p3 != nullptr){
+    p2->setNext(p1);
+
+    p1=p2;
+    p2=p3;
+    p3=p3->getNext();
+  }
+
+  head = p2;
+  head->setNext(p1);
   return;
 }
