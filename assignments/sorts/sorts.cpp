@@ -242,7 +242,6 @@ void qsort2(std::vector<int>& list, int low, int high) {
 
 }
 
-
 void print_help(char *command_name){
   std::cout << "Usage: "<< command_name;
   std::cout << " [-h|-p|-m N|-s N|-a algorithm]\n\n";

@@ -2,13 +2,18 @@
 #include "Node.h"
 #include "List.h"
 
-class Stack : public List{
+#define STACK_FULL 1
+#define STACK_EMPTY 2
+
+class Stack{
   private:
   List *list;
   int stackLength;
   public:
     Stack();
     ~Stack();
+    //string representation of current stack
+    std::string toString();
     //insert data to top of list
     void push(int x);
     //remove and return the top item
