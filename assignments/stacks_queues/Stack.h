@@ -2,7 +2,7 @@
 #include "Node.h"
 #include "List.h"
 
-class Stack : private List{
+class Stack : public List{
   private:
   List *list;
   int stackLength;
