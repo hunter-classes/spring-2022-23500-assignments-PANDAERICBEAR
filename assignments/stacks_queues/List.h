@@ -17,4 +17,6 @@ class List{
     void locate(int location, std::string data);
     //removes node at location
     void remove(int location);
+    //getter method to return head of list
+    std::string getHead();
 };

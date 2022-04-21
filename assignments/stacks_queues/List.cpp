@@ -77,6 +77,13 @@ void List::remove(int location){
     location-=1;
   }
 
+  if(location == 0){
+    tempNode = walker->getNext();
+    delete(walker);
+    head = tempNode;
+    return;
+  }
+
   //set tempNode to Node after the node we want to delete, to save its information
   tempNode=walker->getNext()->getNext();
   //delete the node that we don't want
@@ -85,4 +92,8 @@ void List::remove(int location){
   walker->setNext(tempNode);
   // size = size - 1;
   // std::cout << "size is " << size << "\n";
+}
+
+std::string List::getHead(){
+  return head->getData();
 }

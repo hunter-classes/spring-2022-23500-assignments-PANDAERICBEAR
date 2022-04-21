@@ -1,17 +1,38 @@
-#pragma once
+#include <iostream>
+#include "Stack.h"
 #include "Node.h"
 #include "List.h"
 
-class Stack : public List{
-  public:
-    Stack();
-    ~Stack();
-    //insert data to beginning of list
-    void push(int x);
-    //return a string representation of the full list
-    std::string toString();
-    //insert node w/ data at location
-    void locate(int location, std::string data);
-    //removes node at location
-    void remove(int location);
-};
+Stack::Stack(){
+  list = new List();
+  stackLength = 0;
+}
+
+void Stack::push(int x){
+  //create a new Node
+  list->insert(std::to_string(x));
+  std::cout << list->toString() << std::endl;
+  stackLength++;
+}
+
+int Stack::pop(){
+  int data = std::stoi(list->getHead());
+  //remove top item
+  list->remove(0);
+  std::cout << list->toString() << std::endl;
+  //get head data
+  stackLength--;
+  return data;
+}
+
+int Stack::top(){
+  int data = std::stoi(list->getHead());
+  return data;
+}
+
+bool Stack::is_empty(){
+  if (stackLength == 0)
+    return true;
+  else
+    return false;
+}

@@ -1,65 +1,16 @@
 #include <iostream>
 #include "List.h"
 #include "Node.h"
-#include "OList.h"
-void Nodes();
-void LinkedList();
+#include "Stack.h"
 
 int main(){
-  OList *alist = new OList();
-  alist->insert(1);
-  alist->insert(2);
-  // alist->insert(3);
-  // alist->insert(4);
-  // alist->insert(5);
-  alist->reverse();
-  std::cout << alist->toString() << "\n";
-  // LinkedList();
+  Stack *stack = new Stack();
+  stack->push(5);
+  stack->push(1);
+  stack->push(3);
+  std::cout << stack->pop() << std::endl;
+  stack->push(2);
+  std::cout << stack->top() << std::endl;
+  std::cout << stack->is_empty() << std::endl;
   return 0;
-}
-
-void LinkedList(){
-  List *list = new List();
-  list->insert("a");
-  list->insert("b");
-  list->insert("c");
-  list->insert("d");
-  list->insert("e");
-  list->insert("f");
-
-  list->locate(3, "z");
-  std::cout << list->toString() << "\n";
-
-  list->remove(2);
-  std::cout << list->toString() << "\n";
-
-
-  //destruct list
-  list->~List();
-  std::cout << list->toString() << "\n";
-}
-
-void Nodes(){
-  Node *p1 = new Node(); //creates a p1 memory block that points to a blank Node
-  p1->setData("hello"); // (*p1.setData()) -- refers to what p1 is pointing to, a blank Node. set its data
-
-  Node *p2 = new Node("World"); //creates a p2 memory block that points to a blank Node, with its data set as "World"
-
-  p1->setNext(p2); //points the p1 head Node to the p2 Node
-
-  std::cout << p1->getData() << "\n";
-  std::cout << p2->getData() << "\n";
-  //(p1 pointer) --> head Node --> (p2 pointer) --> Node's Data
-  std::cout << p1->getNext()->getData() << "\n";
-
-  p2 = new Node("!");
-  p1->getNext()->setNext(p2);
-
-  Node *walker = p1;
-  std::cout << "\n" << walker->getData() << "\n";
-  walker = walker->getNext();
-  std::cout << walker->getData() << "\n";
-  walker = walker->getNext();
-  std::cout << walker->getData() << "\n";
-
 }
