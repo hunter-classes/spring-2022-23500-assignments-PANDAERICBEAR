@@ -1,10 +1,10 @@
-main: main.o Node.o List.o Stack.o
-	g++ -o main main.o Node.o List.o Stack.o
+main: main.o Node.o List.o Stack.o Queue.o
+	g++ -o main main.o Node.o List.o Stack.o Queue.o
 
-tests: tests.o Node.o List.o Stack.o
-	g++ -o tests tests.o Node.o List.o Stack.o
+tests: tests.o Node.o List.o Stack.o Queue.o
+	g++ -o tests tests.o Node.o List.o Stack.o Queue.o
 
-main.o: main.cpp Node.h List.h Stack.h
+main.o: main.cpp Node.h List.h Stack.h Queue.h
 	g++ -c main.cpp
 
 Node.o: Node.cpp Node.h
@@ -16,7 +16,10 @@ List.o: List.cpp List.h Node.h
 Stack.o: Stack.cpp Stack.h
 	g++ -c Stack.cpp
 
-tests.o: tests.cpp doctest.h Node.h List.h Stack.h
+Queue.o: Queue.cpp Queue.h
+	g++ -c Queue.cpp
+
+tests.o: tests.cpp doctest.h Node.h List.h Stack.h Queue.h
 	g++ -c tests.cpp
 
 clean:

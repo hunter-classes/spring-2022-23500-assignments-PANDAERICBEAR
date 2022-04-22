@@ -3,12 +3,13 @@
 #include "List.h"
 #include "Node.h"
 #include "Stack.h"
+#include "Queue.h"
 
 //Stack
 TEST_CASE("STACK"){
   Stack *stack = new Stack();
 
-  SUBCASE("Push"){
+  SUBCASE("PUSH"){
     stack->push(5);
     CHECK(stack->toString() == "5-->nullptr");
     stack->push(1);
@@ -60,5 +61,76 @@ TEST_CASE("STACK"){
     CHECK(!stack->is_empty());
     stack->pop();
     CHECK(stack->is_empty());
+  }
+}
+
+TEST_CASE("QUEUE"){
+  Queue *queue = new Queue();
+  for(int i = 1; i <= 10; i++){
+    queue->enqueue(i);
+  }
+  SUBCASE("ENQUEUE"){
+    CHECK(queue->toString() == "[1,2,3,4,5,6,7,8,9,10,]");
+  }
+
+  SUBCASE("DEQUEUE"){
+    queue->dequeue();
+    queue->dequeue();
+    queue->dequeue();
+    CHECK(queue->toString() == "[0,0,0,4,5,6,7,8,9,10,]");
+  }
+
+  SUBCASE("EMPTY"){
+    queue->dequeue();
+    queue->dequeue();
+    queue->dequeue();
+    queue->dequeue();
+    queue->dequeue();
+    queue->dequeue();
+    queue->dequeue();
+    queue->dequeue();
+    queue->dequeue();
+    queue->dequeue();
+    CHECK(queue->is_empty());
+
+    try{
+      queue->dequeue();
+    } catch(int error){
+      CHECK(error == QUEUE_EMPTY);
+    }
+  }
+
+  SUBCASE("FULL"){
+    CHECK(queue->is_full());
+    try{
+      queue->enqueue(11);
+    } catch(int error){
+      CHECK(error == QUEUE_FULL);
+    }
+  }
+
+  SUBCASE("WrapAround"){
+    queue->dequeue();
+    queue->dequeue();
+    queue->dequeue();
+    CHECK(queue->toString() == "[0,0,0,4,5,6,7,8,9,10,]");
+    queue->enqueue(11);
+    queue->enqueue(12);
+    queue->enqueue(13);
+    CHECK(queue->toString() == "[11,12,13,4,5,6,7,8,9,10,]");
+    CHECK(queue->is_full());
+    queue->dequeue();
+    queue->dequeue();
+    queue->dequeue();
+    queue->dequeue();
+    queue->dequeue();
+    CHECK(queue->toString() == "[11,12,13,0,0,0,0,0,9,10,]");
+    queue->dequeue();
+    queue->dequeue();
+    queue->dequeue();
+    queue->dequeue();
+    queue->dequeue();
+    CHECK(queue->toString() == "[0,0,0,0,0,0,0,0,0,0,]");
+    CHECK(queue->is_empty());
   }
 }

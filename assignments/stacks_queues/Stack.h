@@ -5,6 +5,7 @@
 #define STACK_FULL 1
 #define STACK_EMPTY 2
 
+//Last In - First Out
 class Stack{
   private:
   List *list;
@@ -20,6 +21,6 @@ class Stack{
     int pop();
     //return but do not remove the top item
     int top();
-    //return true if rempty, false otherwise
+    //return true if stack is empty, false otherwise
     bool is_empty();
 };
