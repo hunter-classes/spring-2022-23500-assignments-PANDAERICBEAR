@@ -80,6 +80,12 @@ TEST_CASE("QUEUE"){
     CHECK(queue->toString() == "[0,0,0,4,5,6,7,8,9,10,]");
   }
 
+  SUBCASE("FRONT"){
+    CHECK(queue->front() == 1);
+    queue->dequeue();
+    CHECK(queue->front() == 2);
+  }
+
   SUBCASE("EMPTY"){
     queue->dequeue();
     queue->dequeue();

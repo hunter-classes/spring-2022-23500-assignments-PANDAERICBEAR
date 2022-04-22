@@ -57,6 +57,12 @@ int Queue::dequeue(){
   //return item;
   return item;
 }
+
+// return but do not remove the item from the front of the queue
+int Queue::front(){
+  return queue[head];
+}
+
 //return true if empty, false otherwise
 bool Queue::is_empty(){
   if((head%10 == tail%10) && lengthOfQueue == 0){
