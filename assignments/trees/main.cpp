@@ -49,10 +49,10 @@ int main(){
      std::cout << " did not find number" << "\n";
    }
 
-   try {
-     t->rinsert(8);
-   } catch (int e){
-     std::cout << "could not insert number" << "\n";
-   }
+   // try {
+   //   t->rinsert(8);
+   // } catch (int e){
+   //   std::cout << "could not insert number" << "\n";
+   // }
   return 0;
 }
