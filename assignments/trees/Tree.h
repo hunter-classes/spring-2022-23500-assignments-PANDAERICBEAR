@@ -13,6 +13,8 @@ public:
   BSTree();
   std::string get_debug_string();
   std::string get_debug_string_Rhelper(Node *n);
+  void deleteVal(int d);
+  int maxVal(int max, Node *node);
   void insert(int d);
   void rinsert(int d);
   void rinsert(int d, Node *root, Node *trailer);

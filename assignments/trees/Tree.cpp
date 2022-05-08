@@ -118,6 +118,99 @@ std::string BSTree::get_debug_string_Rhelper(Node *n){
   }
 }
 
+void BSTree::deleteVal(int value){
+  Node *walker = root;
+  Node *trailer = nullptr;
+
+  //loop till value is found
+  while(walker){
+    //move trailer forward
+    trailer = walker;
+
+    if(walker->getData() > value){
+      walker = walker->getLeft();
+    } else if (walker->getData() < value){
+      walker = walker->getRight();
+    } else { //current node is the value we're looking for
+      break;
+    }
+  }
+
+  //case 1: Node is a leaf
+  //using the parent node (trailer), set its child to null
+  //remove/delete walker node
+  if (walker->getLeft() == nullptr && walker->getRight() == nullptr){
+    if(trailer->getLeft()->getData() == value){
+      trailer->setLeft(nullptr);
+    } else {
+      trailer->setRight(nullptr);
+    }
+
+    walker = nullptr;
+    delete walker;
+    return;
+  }
+
+  //case 2: Node has 1 child
+  //relink the parent to its remaining child
+  //get a pointer to it's parent, set the parent's pointer to the child
+  //delete's only child
+  if(trailer->getData() > walker->getData()){
+    if (walker->getLeft() == nullptr && walker->getRight()){
+      trailer->setLeft(walker->getRight());
+    }
+    else if (walker->getLeft() && walker->getRight() == nullptr){
+      trailer->setLeft(walker->getLeft());
+    }
+    walker = nullptr;
+    delete walker;
+    return;
+  } else {
+    if (walker->getLeft() == nullptr && walker->getRight()){
+      trailer->setRight(walker->getRight());
+    }
+    else if (walker->getLeft() && walker->getRight() == nullptr){
+      trailer->setRight(walker->getLeft());
+    }
+    walker = nullptr;
+    delete walker;
+    return;
+  }
+
+  //case 3: Node has 2 children
+  //pull out the node
+  //replace with the smallest on the right subtree (keep going left until the next one is null)
+  //or the biggest one on the left subtree (keep going right until the next one is null)
+  //the replacement node will either have 0 or 1 children so you can delete using either case 1 or 2
+  if(walker->getLeft() && walker->getRight()){
+    Node *smallNode = walker->getRight();
+    Node *bigNode = walker->getLeft();
+    //find smallest node by traversing all the way left
+    while(smallNode){
+      smallNode = smallNode->getLeft();
+    }
+    //find biggest node by traversing all the way right
+    while(bigNode){
+      bigNode = bigNode->getRight();
+    }
+
+    //connecting parent node
+    if (trailer->getData() < walker->getData()){
+      trailer->setRight(smallNode);
+    } else {
+      trailer->setLeft(bigNode);
+    }
+  }
+
+}
+
+int BSTree::maxVal(int max, Node *node){
+  //base case
+  if (node->getData() > max){
+    return node->getData();
+  }
+}
+
 int BSTree::rsearch(int value){
   return rsearch(value, root);
 }
