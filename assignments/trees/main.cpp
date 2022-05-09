@@ -41,13 +41,17 @@ int main(){
   BSTree *t = new BSTree();
   t->setup();
 
-   std::cout <<  t->get_debug_string() << "\n";
+  std::cout << "the current tree is:" << std::endl;
+  std::cout <<  t->get_debug_string() << "\n";
 
    try {
-     std::cout << t->rsearch(15) << "\n";
+     t->deleteVal(20);
    } catch (int e){
-     std::cout << " did not find number" << "\n";
+     std::cout << "could not delete" << "\n";
    }
+
+   std::cout << "the current tree is:" << std::endl;
+   std::cout <<  t->get_debug_string() << "\n";
 
    // try {
    //   t->rinsert(8);

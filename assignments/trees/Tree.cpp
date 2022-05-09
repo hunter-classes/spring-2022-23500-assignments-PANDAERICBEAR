@@ -109,12 +109,12 @@ std::string BSTree::get_debug_string(){
 
 std::string BSTree::get_debug_string_Rhelper(Node *n){
   if(n == nullptr){
-    return "";
+    return "null";
   } else {
     if (n->getLeft() == nullptr && n->getRight() == nullptr){
       return std::to_string(n->getData());
     }
-    return std::to_string(n->getData()) + "\n" + get_debug_string_Rhelper(n->getLeft()) + "\n" + get_debug_string_Rhelper(n->getRight());
+    return std::to_string(n->getData()) + " " + get_debug_string_Rhelper(n->getLeft()) + " " + get_debug_string_Rhelper(n->getRight());
   }
 }
 
@@ -126,12 +126,16 @@ void BSTree::deleteVal(int value){
   while(walker){
     //move trailer forward
     trailer = walker;
-
     if(walker->getData() > value){
       walker = walker->getLeft();
     } else if (walker->getData() < value){
       walker = walker->getRight();
-    } else { //current node is the value we're looking for
+    }
+
+    if (walker->getData() == value) { //current node is the value we're looking for
+      std::cout << "value found" << std::endl;
+      std::cout << "trailerNode is at: " << trailer->getData() << std::endl;
+      std::cout << "walkerNode is at: " << walker->getData() << std::endl;
       break;
     }
   }
@@ -140,12 +144,12 @@ void BSTree::deleteVal(int value){
   //using the parent node (trailer), set its child to null
   //remove/delete walker node
   if (walker->getLeft() == nullptr && walker->getRight() == nullptr){
-    if(trailer->getLeft()->getData() == value){
+    std::cout << "case 1: Node is a leaf" << std::endl;
+    if(trailer->getData() > walker->getData()){
       trailer->setLeft(nullptr);
     } else {
       trailer->setRight(nullptr);
     }
-
     walker = nullptr;
     delete walker;
     return;
@@ -155,21 +159,21 @@ void BSTree::deleteVal(int value){
   //relink the parent to its remaining child
   //get a pointer to it's parent, set the parent's pointer to the child
   //delete's only child
-  if(trailer->getData() > walker->getData()){
-    if (walker->getLeft() == nullptr && walker->getRight()){
+  if (walker->getLeft() == nullptr && walker->getRight()){
+    std::cout << "case 2: Node has 1 child" << '\n';
+    if(trailer->getData() > walker->getData()){
       trailer->setLeft(walker->getRight());
-    }
-    else if (walker->getLeft() && walker->getRight() == nullptr){
-      trailer->setLeft(walker->getLeft());
+    } else {
+      trailer->setRight(walker->getRight());
     }
     walker = nullptr;
     delete walker;
     return;
-  } else {
-    if (walker->getLeft() == nullptr && walker->getRight()){
-      trailer->setRight(walker->getRight());
-    }
-    else if (walker->getLeft() && walker->getRight() == nullptr){
+  } else if (walker->getRight() == nullptr && walker->getLeft()){
+    std::cout << "case 2: Node has 1 child" << '\n';
+    if(trailer->getData() > walker->getData()){
+      trailer->setLeft(walker->getLeft());
+    } else {
       trailer->setRight(walker->getLeft());
     }
     walker = nullptr;
@@ -179,37 +183,25 @@ void BSTree::deleteVal(int value){
 
   //case 3: Node has 2 children
   //pull out the node
-  //replace with the smallest on the right subtree (keep going left until the next one is null)
-  //or the biggest one on the left subtree (keep going right until the next one is null)
+  //replace walkerNode with the biggest one on the left subtree (keep going right until the next one is null)
   //the replacement node will either have 0 or 1 children so you can delete using either case 1 or 2
   if(walker->getLeft() && walker->getRight()){
-    Node *smallNode = walker->getRight();
-    Node *bigNode = walker->getLeft();
-    //find smallest node by traversing all the way left
-    while(smallNode){
-      smallNode = smallNode->getLeft();
-    }
-    //find biggest node by traversing all the way right
-    while(bigNode){
-      bigNode = bigNode->getRight();
+    std::cout << "case 3: Node has 2 children" << '\n';
+    Node *smallNode = walker->getLeft(); //smallest node on right subtree
+    //find smallest node by traversing all the way right
+    while(smallNode->getRight() != nullptr){
+      std::cout << smallNode->getData() << std::endl;
+      smallNode = smallNode->getRight();
     }
 
-    //connecting parent node
-    if (trailer->getData() < walker->getData()){
-      trailer->setRight(smallNode);
-    } else {
-      trailer->setLeft(bigNode);
-    }
+    int tempVal = smallNode->getData();
+    deleteVal(tempVal);
+    walker->setData(tempVal);
+    return;
   }
 
 }
 
-int BSTree::maxVal(int max, Node *node){
-  //base case
-  if (node->getData() > max){
-    return node->getData();
-  }
-}
 
 int BSTree::rsearch(int value){
   return rsearch(value, root);
