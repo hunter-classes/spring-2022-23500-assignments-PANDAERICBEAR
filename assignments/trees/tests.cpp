@@ -57,4 +57,54 @@ TEST_CASE("Tree"){
     }
     CHECK(t->get_debug_string() == "10 3 null 7 15 null 30");
   }
+
+  SUBCASE("Counting Leaves"){
+    t->setup();
+    t->insert(14);
+    try{
+      CHECK(t->countLeaves() == 4);
+    } catch (int error){
+      CHECK(error == TREE_NULL);
+    }
+    t->insert(32);
+    t->insert(28);
+    try{
+      CHECK(t->countLeaves() == 5);
+    } catch (int error){
+      CHECK(error == TREE_NULL);
+    }
+  }
+
+  SUBCASE("Height of Tree"){
+    t->setup();
+    t->insert(14);
+    try{
+      CHECK(t->height() == 4);
+    } catch (int error){
+      CHECK(error == TREE_NULL);
+    }
+  }
+
+  SUBCASE("Sum At Level"){
+    t->setup();
+    t->insert(14);
+    CHECK(t->sumAtLevel(4) == 104);
+    t->insert(28);
+    t->insert(32);
+    CHECK(t->sumAtLevel(4) == 164);
+  }
+
+  SUBCASE("Cousins"){
+    t->setup();
+    t->insert(14);
+    t->insert(28);
+    t->insert(32);
+
+    try{
+      CHECK(t->cousins(3, 30));
+      CHECK(t->cousins(14, 32));
+    } catch (int error){
+      CHECK(error == VALUE_NOT_FOUND);
+    }
+  }
 }

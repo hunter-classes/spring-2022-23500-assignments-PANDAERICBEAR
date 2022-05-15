@@ -40,18 +40,25 @@ int main(){
   //BSTree
   BSTree *t = new BSTree();
   t->setup();
-
-  std::cout << "the current tree is:" << std::endl;
-  std::cout <<  t->get_debug_string() << "\n";
-
-   try {
-     t->deleteVal(20);
-   } catch (int e){
-     std::cout << "could not delete" << "\n";
-   }
-
-   std::cout << "the current tree is:" << std::endl;
-   std::cout <<  t->get_debug_string() << "\n";
+  t->insert(14);
+  t->insert(28);
+  t->insert(32);
+  // std::cout << t->countLeaves() << '\n';
+  // std::cout << t->height() << '\n';
+  // std::cout << t->sumAtLevel(4) << '\n';
+  // std::cout << t->cousins(3, 14) << '\n';
+  std::cout << t->prettyPrint() << '\n';
+  // std::cout << "the current tree is:" << std::endl;
+  // std::cout <<  t->get_debug_string() << "\n";
+  //
+  //  try {
+  //    t->deleteVal(20);
+  //  } catch (int e){
+  //    std::cout << "could not delete" << "\n";
+  //  }
+  //
+  //  std::cout << "the current tree is:" << std::endl;
+   // std::cout <<  t->get_debug_string() << "\n";
 
    // try {
    //   t->rinsert(8);

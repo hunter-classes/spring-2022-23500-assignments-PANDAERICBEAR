@@ -222,8 +222,132 @@ int BSTree::rsearch(int value, Node *p){
     return rsearch(value, p->getLeft());
   }
 
-  //if we get here, then the value was not found in the tree
   throw VALUE_NOT_FOUND;
+}
+
+int BSTree::countLeaves(){
+  return countLeaves(root);
+}
+
+int BSTree::countLeaves(Node *node){
+  if (node == nullptr){
+    throw TREE_NULL;
+  }
+  if (node->getLeft() == nullptr && node->getRight() == nullptr){
+    // std::cout << node->getData() << " is a leaf" << '\n';
+    return 1;
+  }
+  int leafLeft = 0, leafRight = 0;
+  if (node->getLeft()){
+    leafLeft = countLeaves(node->getLeft());
+  }
+  if (node->getRight()){
+    leafRight = countLeaves(node->getRight());
+  }
+
+  return leafLeft + leafRight;
+}
+
+int BSTree::height(){
+  return height(root);
+}
+
+int BSTree::height(Node *node){
+  if (node == nullptr){
+    throw TREE_NULL;
+  }
+  int left = 0;
+  int right = 0;
+  if (node->getLeft() != nullptr){
+    left = height(node->getLeft());
+  }
+  if (node->getRight() != nullptr){
+    right = height(node->getRight());
+  }
+
+  if (right > left){
+    return right + 1;
+  } else {
+    return left + 1;
+  }
+}
+
+int BSTree::heightAtValue(Node *node, int value){
+  //base case 1: exception case where root does not exist
+  if (node == nullptr){
+    return 0;
+  }
+
+  if (node->getData() == value){
+    return 1;
+  }
+
+  //traversal on left
+  if (node->getData() > value){
+    return 1 + heightAtValue(node->getLeft(), value);
+  }
+
+  return 1 + heightAtValue(node->getRight(), value);
+}
+
+int BSTree::sumAtLevel(int level){
+  return sumAtLevel(root, 1, level);
+}
+
+int BSTree::sumAtLevel(Node *node, int currLevel, int level){
+  if (node == nullptr){
+    return 0;
+  }
+
+  if (currLevel == level){
+    return node->getData();
+  }
+  if (node->getLeft() == nullptr && node->getRight() == nullptr){
+    return node->getData();
+  } else {
+    return node->getData() + sumAtLevel(node->getLeft(),currLevel +1, level) + sumAtLevel(node->getRight(), currLevel +1, level);
+  }
+
+}
+
+bool BSTree::cousins(int valOne, int valTwo){
+  return cousins(root, valOne, valTwo);
+}
+
+bool BSTree::cousins(Node *node, int valOne, int valTwo){
+  if(rsearch(valOne) != valOne || rsearch(valTwo) != valTwo){
+    throw VALUE_NOT_FOUND;
+  }
+  int levA = heightAtValue(root, valOne);
+  int levB = heightAtValue(root, valTwo);
+  // std::cout << levA << '\n';
+  // std::cout << levB << '\n';
+  if (levA == levB){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+std::string BSTree::prettyPrint(){
+  return prettyPrint(root, 0);
+}
+
+std::string BSTree::prettyPrint(Node *node, int currTabs){
+  std::string str = "";
+  //appropriate tabbing for each level
+  for (int i = 0; i < currTabs; i++){
+    str += "\t";
+  }
+
+  str += std::to_string(node->getData()) + "\n";
+  if (node->getLeft() != nullptr){
+    str += prettyPrint(node->getLeft(), currTabs+1);
+  }
+  if (node->getRight() != nullptr){
+    str += prettyPrint(node->getRight(), currTabs+1);
+  }
+  return str;
 }
 
 void BSTree::setup(){
